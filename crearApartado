@@ -1,0 +1,43 @@
+<?php 
+
+header("Content-Type:application/json");
+header('Access-Control-Allow-Origin: *');
+header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method");
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
+header("Allow: GET, POST, OPTIONS, PUT, DELETE");
+
+$host="192.168.100.13";
+$user="ANGEL";
+$password="Root1Angel";
+$dataBase="osfesa";
+$obj=json_decode(file_get_contents('php://input'), true);
+$response = array();
+$response['status'] = false;
+
+
+$connection=new mysqli($host,$user,$password,$dataBase);
+
+if(!$connection){
+    die("Connection failed: " . mysqli_connect_error());
+
+}
+$idProspecto = $obj["idProspecto"];
+$idProyeto = $obj["idProyecto"];
+//$idLote= $obj["idLote"];
+$importe= $obj["importe"];
+$estatus= $obj["estatus"];
+$sql= "INSERT INTO apartado VALUES (123,'$idProspecto','21/07/23','$idProyeto','1234','$importe','$estatus')";
+
+
+
+
+
+if (mysqli_query($connection, $sql)) {
+  echo ("Creado");
+} else {
+  echo "Error: " . $sql . "<br>" . mysqli_error($connection);
+};
+
+ 
+
+?>
