@@ -6,13 +6,12 @@ header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Conte
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
 header("Allow: GET, POST, OPTIONS, PUT, DELETE");
 
+
 $host="192.168.100.13";
 $user="ANGEL";
 $password="Root1Angel";
 $dataBase="osfesa";
 $obj=json_decode(file_get_contents('php://input'), true);
-$response = array();
-$response['status'] = false;
 
 
 $connection=new mysqli($host,$user,$password,$dataBase);
@@ -23,10 +22,10 @@ if(!$connection){
 }
 $idProspecto = $obj["idProspecto"];
 $idProyeto = $obj["idProyecto"];
-//$idLote= $obj["idLote"];
+$idLote= $obj["idLote"];
 $importe= $obj["importe"];
 $estatus= $obj["estatus"];
-$sql= "INSERT INTO apartado VALUES (123,'$idProspecto','21/07/23','$idProyeto','1234','$importe','$estatus')";
+$sql= "INSERT INTO apartado VALUES ('$idProspecto','21/07/23','$idProyeto','$idLote','$importe','$estatus')";
 
 
 
