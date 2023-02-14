@@ -5,40 +5,45 @@ header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Conte
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
 header("Allow: GET, POST, OPTIONS, PUT, DELETE");
 
-$host="192.168.100.13";
-$user="ANGEL";
-$password="Root1Angel";
-$dataBase="osfesa";
+$host="162.241.62.132";
+$user="grupoosf_admin_pruebas";
+$password="rQbp2RZAPK7KSBs";
+$dataBase="grupoosf_db_pruebas";
 $obj=json_decode(file_get_contents('php://input'), true);
-$response["status"]=false;
+$response = array();
+$response['status'] = false;
 
 $connection=new mysqli($host,$user,$password,$dataBase);
+
 $nombre= $obj["nombre"];
 $apellidoPaterno= $obj["apellidoPaterno"];
 $apellidoMaterno= $obj["apellidoMaterno"];
     
 $sql= "SELECT id_prospecto,estatus from generales where nombre='$nombre' and apellido_paterno='$apellidoPaterno'and
-apellido_materno='$apellidoMaterno'and estatus='APARTADO'";
+apellido_materno='$apellidoMaterno'";
 
 
 
 $resultado = mysqli_query($connection, $sql);
-$mDta=array();
+$response=array();
 
 
 
 if ($resultado->num_rows > 0) {
     // output data of each row
     while($id = mysqli_fetch_assoc($resultado)) {
-        $response["status"]=true;
-        $mData=$id;
+       // $response["status"]=true;
+    $response=$id;
+      
      
     }
-    echo json_encode($mData);  
+    echo json_encode($response);  
    
   } else {
     echo "0 results";
   }
   
 ?>
+
+
 
