@@ -1,42 +1,39 @@
-<?php
- header("Content-Type:application/json");
+<?php 
+header("Content-Type:application/json");
 header('Access-Control-Allow-Origin: *');
 header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method");
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
 header("Allow: GET, POST, OPTIONS, PUT, DELETE");
 
-$host="192.168.100.13";
-$user="ANGEL";
-$password="Root1Angel";
-$dataBase="osfesa";
+$host="162.241.62.132";
+$user="grupoosf_admin_pruebas";
+$password="rQbp2RZAPK7KSBs";
+$dataBase="grupoosf_db_pruebas";
 $obj=json_decode(file_get_contents('php://input'), true);
-$response = array();
-$response['status'] =false;
+$response["status"]=false;
+
 $connection=new mysqli($host,$user,$password,$dataBase);
 
-$usuarioId = $obj["userId"];
-$password= $obj["password"];
-$sql= "select * from user_admin  where user = '$usuarioId' and password = '$password'";
+//$idProyecto= $obj["idProyecto"];
 
+$sql= "SELECT id_lote from CATALOGO_LOTES where proyecto='SAN FERNANDO' and estatus='LIBRE'";
 
 $resultado = mysqli_query($connection, $sql);
+$mData=array();
 
 
 
-$row_cnt = $resultado->num_rows;
+if ($resultado->num_rows > 0) {
+    // output data of each row
+    while($id = mysqli_fetch_assoc($resultado)) {
+        $mData[]=$id;
+     
+    }
+    echo json_encode($mData);  
 
-if($row_cnt){
 
-    $response['status'] = true;
-    
-    echo json_encode($response);
-    exit;
-
-}else{
-    $response['status'] =false;
-    echo json_encode($response);
-    exit;
-
-}
-
+} else {
+    echo "0 results";
+  }
 ?>
+
