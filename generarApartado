@@ -19,7 +19,7 @@ $nombre= $obj["nombre"];
 $apellidoPaterno= $obj["apellidoPaterno"];
 $apellidoMaterno= $obj["apellidoMaterno"];
     
-$sql= "SELECT id_prospecto,estatus from generales where nombre='$nombre' and apellido_paterno='$apellidoPaterno'and
+$sql= "SELECT id_prospecto,estatus from GENERALES where nombre='$nombre' and apellido_paterno='$apellidoPaterno'and
 apellido_materno='$apellidoMaterno'";
 
 
