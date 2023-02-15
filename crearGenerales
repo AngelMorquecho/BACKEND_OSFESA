@@ -46,7 +46,7 @@ if(!$connection){
 //$ITEM="PR_".$conn;
 
 
-//$sql = "INSERT INTO generales (
+//$sql = "INSERT INTO GENERALES (
     //nombre,apellido_paterno,apellido_materno,nacionalidad,edad,estado_civil,grado_estudios,ocupacion,telefono_cel,
     //telefono_casa,calle,numero_int,numero_ext,colonia,estado,municipio,beneficiario,estatus)VALUES ('$nombre','$apellidoPaterno','$apellidoMaterno','$nacionalidad','$edad','$estadoCivil','$gradoEstudios','$ocupacion','$telefonoCel','$telefonoCasa',
 //'$calle','$numeroInt','$numeroExt','$colonia','$beneficiario','$estatus')";
