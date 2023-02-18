@@ -1,0 +1,31 @@
+<?php 
+
+include 'index.php';
+header("Content-Type:application/json");
+header('Access-Control-Allow-Origin: *');
+header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method");
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
+header("Allow: GET, POST, OPTIONS, PUT, DELETE");
+
+
+$obj=json_decode(file_get_contents('php://input'), true);
+$response = array();
+$response['status'] = false;
+
+
+
+    
+$sql= "SELECT MAX(ITEM)+1 as idResultado from RECIBOS";
+
+
+
+$resultado = mysqli_query($connection, $sql);
+$row= mysqli_fetch_assoc($resultado);
+echo $row["idResultado"];
+$response=array();
+
+
+
+  
+?>
+
