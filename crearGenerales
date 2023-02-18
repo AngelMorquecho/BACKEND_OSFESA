@@ -1,21 +1,20 @@
 <?php 
- header("Content-Type:application/json");
- header('Access-Control-Allow-Origin: *');
- header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method");
- header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
- header("Allow: GET, POST, OPTIONS, PUT, DELETE");
+include 'index.php';
+header("Content-Type:application/json");
+header('Access-Control-Allow-Origin: *');
+header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method");
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
+header("Allow: GET, POST, OPTIONS, PUT, DELETE");
 
- $host="162.241.62.132";
-$user="grupoosf_admin_pruebas";
-$password="rQbp2RZAPK7KSBs";
-$dataBase="grupoosf_db_pruebas";
+
  $obj=json_decode(file_get_contents('php://input'), true);
-$response = array();
+
+$response=array();
 $response['status'] = false;
 
 
-$connection=new mysqli($host,$user,$password,$dataBase);
-//$idProspecto= $obj["idProspecto"];
+
+$idProspecto= $obj["idProspecto"];
 $idVendedor= $obj["idVendedor"];
 $nombre= $obj["nombre"];
 $apellidoPaterno = $obj["apellidoPaterno"];
@@ -37,21 +36,10 @@ $beneficiario= $obj["beneficiario"];
 $estatus= $obj["estatus"];
 
 
-if(!$connection){
-    die("Connection failed: " . mysqli_connect_error());
-
-}
-//$sql1="SELECT MAX(ITEM)+1 AS ID_PROSPECTO FROM GENERALES";
-//$conn=mysqli_query($connection,$sql1);
-//$ITEM="PR_".$conn;
 
 
-//$sql = "INSERT INTO GENERALES (
-    //nombre,apellido_paterno,apellido_materno,nacionalidad,edad,estado_civil,grado_estudios,ocupacion,telefono_cel,
-    //telefono_casa,calle,numero_int,numero_ext,colonia,estado,municipio,beneficiario,estatus)VALUES ('$nombre','$apellidoPaterno','$apellidoMaterno','$nacionalidad','$edad','$estadoCivil','$gradoEstudios','$ocupacion','$telefonoCel','$telefonoCasa',
-//'$calle','$numeroInt','$numeroExt','$colonia','$beneficiario','$estatus')";
 $sql = "INSERT INTO GENERALES (id_prospecto,id_vendedor,nombre,apellido_paterno,apellido_materno,nacionalidad,edad,estado_civil,grado_estudios,ocupacion,telefono,calle,numero_int,numero_ext,colonia,estado,municipio,beneficiario,estatus)
-VALUES ('PR','$idVendedor','$nombre','$apellidoPaterno','$apellidoMaterno','$nacionalidad','$edad','$estadoCivil','$gradoEstudios','$ocupacion','$telefonoCel','$calle','$numeroInt','$numeroExt','$colonia','$estado','$municipio','$beneficiario','$estatus')";
+VALUES ('$idProspecto','$idVendedor','$nombre','$apellidoPaterno','$apellidoMaterno','$nacionalidad','$edad','$estadoCivil','$gradoEstudios','$ocupacion','$telefonoCel','$calle','$numeroInt','$numeroExt','$colonia','$estado','$municipio','$beneficiario','$estatus')";
 
 
 
