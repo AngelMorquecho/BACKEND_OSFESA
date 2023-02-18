@@ -1,0 +1,36 @@
+<?php 
+include 'index.php';
+header("Content-Type:application/json");
+header('Access-Control-Allow-Origin: *');
+header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method");
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
+header("Allow: GET, POST, OPTIONS, PUT, DELETE");
+
+
+$obj=json_decode(file_get_contents('php://input'), true);
+$response["status"]=false;
+
+
+//$idProyecto= $obj["idProyecto"];
+
+$sql= "SELECT id_lote from CATALOGO_LOTES where proyecto='SAN FERNANDO' and estatus='DISPONIBLE'";
+
+$resultado = mysqli_query($connection, $sql);
+$mData=array();
+
+
+
+if ($resultado->num_rows > 0) {
+    // output data of each row
+    while($id = mysqli_fetch_assoc($resultado)) {
+        $mData[]=$id;
+     
+    }
+    echo json_encode($mData);  
+
+
+} else {
+    echo "0 results";
+  }
+?>
+
