@@ -1,44 +1,45 @@
 <?php 
+include 'index.php';
+
 
 header("Content-Type:application/json");
 header('Access-Control-Allow-Origin: *');
 header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method");
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
 header("Allow: GET, POST, OPTIONS, PUT, DELETE");
-
-
-$host="162.241.62.132";
-$user="grupoosf_admin_pruebas";
-$password="rQbp2RZAPK7KSBs";
-$dataBase="grupoosf_db_pruebas";
 $obj=json_decode(file_get_contents('php://input'), true);
 $response = array();
-$response['status'] = false;
+$response['status'] =false;
 
-$connection=new mysqli($host,$user,$password,$dataBase);
+
 
 $idProspecto = $obj["idProspecto"];
+$fecha= $obj["fecha"];
 $idProyeto = $obj["idProyecto"];
 $idLote= $obj["idLote"];
 $importe= $obj["importe"];
 $estatus= $obj["estatus"];
-$fecha= $obj["fecha"];
+
+
+
+$sql="INSERT INTO APARTADO (ID_PROSPECTO,FECHA_APARTADO,ID_PROYECTO,ID_LOTE,IMPORTE,ESTATUS) 
+values('$idProspecto','$fecha','$idProyeto','$idLote','$importe','$estatus')";
+$sql1="UPDATE CATALOGO_LOTES SET estatus='APARTADO'WHERE id_lote='$idLote'";
 
 
 
 
-$sql= "INSERT INTO APARTADO VALUES ('','$idProspecto','$fecha','$idProyeto','$idLote','$importe','$estatus')";
-
-
-if(!$connection){
-  die("Connection failed: " . mysqli_connect_error());
-
-}
 
 
 if (mysqli_query($connection, $sql)) {
   echo ("Creado");
-} else {
+  if(mysqli_query($connection, $sql1)){
+    echo ("Actualizado");
+  
+  }
+}
+
+else {
   echo "Error: " . $sql . "<br>" . mysqli_error($connection);
 };
 
