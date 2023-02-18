@@ -1,9 +1,18 @@
-<?php 
-$mysqli = new mysqli("192.168.100.13", "ANGEL", "Root1Angel", "osfesa", 3306);
-if ($mysqli->connect_errno) {
-    echo "Fallo al conectar a MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
+
+<?php
+// Database configuration
+$dbHost     = "162.241.62.132";
+$dbUsername = "grupoosf_admin_pruebas";
+$dbPassword = "rQbp2RZAPK7KSBs";
+$dbName     = "grupoosf_db_pruebas";
+
+// Create database connection
+$connection= new mysqli($dbHost, $dbUsername, $dbPassword, $dbName);
+
+// Check connection
+if ($connection->connect_error) {
+    die("Connection failed: " . $db->connect_error);
 }
 
-echo "<p>Conectado<p>";
 
- ?>
+?>
