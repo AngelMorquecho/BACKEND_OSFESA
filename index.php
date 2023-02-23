@@ -1,10 +1,10 @@
 
 <?php
 // Database configuration
-$dbHost     = "162.241.62.132";
-$dbUsername = "grupoosf_admin_pruebas";
+$dbHost     = "1162.241.62.132";
+$dbUsername = "grupoosf_admin_pro";
 $dbPassword = "rQbp2RZAPK7KSBs";
-$dbName     = "grupoosf_db_pruebas";
+$dbName     = "grupoosf_db_prototype";
 
 // Create database connection
 $connection= new mysqli($dbHost, $dbUsername, $dbPassword, $dbName);
