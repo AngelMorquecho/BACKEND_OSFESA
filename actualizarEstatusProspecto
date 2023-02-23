@@ -1,0 +1,37 @@
+<?php 
+include 'index.php';
+
+
+header("Content-Type:application/json");
+header('Access-Control-Allow-Origin: *');
+header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method");
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
+header("Allow: GET, POST, OPTIONS, PUT, DELETE");
+$obj=json_decode(file_get_contents('php://input'), true);
+$response = array();
+$response['status'] =false;
+
+
+
+$idProspecto = $obj["idProspecto"];
+
+
+
+
+
+$sql2="UPDATE GENERALES SET ESTATUS='APARTADO' where id_prospecto='$idProspecto'";
+//"UPDATE GENERALES SET estatus='APARTADO'WHERE id_prospecto='$idProspecto'";
+
+
+if(mysqli_query($connection, $sql2)){
+  echo ("Actualizado");
+
+}
+
+else {
+  echo "Error: " . $sql . "<br>" . mysqli_error($connection);
+};
+
+ 
+
+?>
