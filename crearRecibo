@@ -18,17 +18,22 @@ $idContrato= $obj["idContrato"];
 
 $cantidadPagos= $obj["cantidadPagos"];
     
-$sql="SELECT max(R.item)+1,P.ID_CONTRATO,P.ID_PROYECTO,P.ID_CLIENTE,C.ID_PROSPECTO,C.NOMBRE, C.APELLIDO_PATERNO, C.APELLIDO_MATERNO
- , P.ID_LOTE, L.ZONA, L.MANZANA, L.LOTE , R.FECHA_FINAL ,date_format(fecha_final+7, '%Y-%m-%d') AS FECHA_INICIAL,CO. MONTO_PAGO_SEM,
- (date_add(R.FECHA_FINAL, interval $cantidadPagos week))as FECHA_PAGO,(CO. MONTO_PAGO_SEM *'$cantidadPagos') AS TOTAL_A_PAGAR
+
+$sql="SELECT (SELECT max(item)+1 FROM RECIBOS ), P.ID_CONTRATO,P.ID_PROYECTO,P.ID_CLIENTE,C.ID_PROSPECTO,C.NOMBRE, C.APELLIDO_PATERNO, C.APELLIDO_MATERNO
+, P.ID_LOTE, L.ZONA, L.MANZANA, L.LOTE , R.FECHA_FINAL ,date_add(R.FECHA_FINAL, interval 1 week) AS FECHA_INICIAL,CO. MONTO_PAGO_SEM,
+(date_add(R.FECHA_FINAL, interval '$cantidadPagos' week))as FECHA_PAGO,(CO. MONTO_PAGO_SEM *'$cantidadPagos') AS TOTAL_A_PAGAR
 FROM
 PRODUCTO P 
 INNER JOIN CLIENTES C ON P.ID_CLIENTE = C.ID_CLIENTE
 INNER JOIN CATALOGO_LOTES L ON P.ID_LOTE = L.ID_LOTE 
 INNER JOIN RECIBOS R ON R.ID_CONTRATO = C.ID_CONTRATO
 INNER JOIN CONTRATOS CO ON CO.ID_CLIENTE = C.ID_CLIENTE
-where P.ID_CONTRATO=$idContrato and tipo_pago='FINANCIADO' ORDER BY C.NOMBRE ASC";
+where P.ID_CONTRATO='$idContrato' and tipo_pago='FINANCIADO' ORDER BY C.NOMBRE ASC;";
+
+
+
 $resultado = mysqli_query($connection, $sql);
+
 if ($resultado->num_rows > 0) {
     // output data of each row
     while($id = mysqli_fetch_assoc($resultado)) {
@@ -39,7 +44,8 @@ if ($resultado->num_rows > 0) {
     }
     echo json_encode($response);  
    
-  } else {
+  }
+   else {
     echo "0 results";
   }
   
