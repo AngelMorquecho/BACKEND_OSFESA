@@ -1,0 +1,59 @@
+<?php 
+
+include 'index.php';
+header("Content-Type:application/json");
+header('Access-Control-Allow-Origin: *');
+header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method");
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
+header("Allow: GET, POST, OPTIONS, PUT, DELETE");
+
+ $obj=json_decode(file_get_contents('php://input'), true);
+$response = array();
+
+$response['status'] = false;
+
+
+$idRecibo= $obj["idRecibo"];
+$idContrato= $obj["idContrato"];
+$idCliente= $obj["idCliente"];
+$idProspecto= $obj["idProspecto"];
+$nombre= $obj["nombre"];
+$apellidoPaterno = $obj["apellidoPaterno"];
+$apellidoMaterno = $obj["apellidoMaterno"];
+$fechaRecibo = $obj["fechaRecibo"];
+$fechaInicial= $obj["fechaInicial"];
+$fechaFinal= $obj["fechaFinal"];
+$cantidadPagos= $obj["cantidadPagos"];
+$monto= $obj["monto"];
+$observaciones= $obj["observaciones"];
+$usuarioAutenticado= $obj["usuarioAutenticado"];
+$usuarioCaptura= $obj["usuarioCaptura"];
+
+
+
+if(!$connection){
+    die("Connection failed: " . mysqli_connect_error());
+
+}
+  
+
+$sql = "INSERT INTO RECIBOS (id_recibo,folio_fisico,id_contrato,id_cliente,id_prospecto,nombre,apellido_paterno,apellido_materno,
+fecha_Recibo,fecha_Inicial,fecha_Final,cantidad_pagos,monto,observaciones,usuario_autenticado,usuario_captura)
+VALUES ('$idRecibo','SIN FOLIO','$idContrato','$idCliente','$idProspecto','$nombre','$apellidoPaterno','$apellidoMaterno',
+'$fechaRecibo','$fechaInicial','$fechaFinal','$cantidadPagos','$monto','$observaciones','$usuarioAutenticado','$usuarioCaptura')";
+$sql1="CALL INSERT_CORRIDAS_FINANCIERAS(1,'$cantidadPagos','$idRecibo','$usuarioAutenticado','$usuarioCaptura')";
+
+
+
+
+
+if (mysqli_query($connection, $sql)) {
+      echo ("Creado");
+}
+if (mysqli_query($connection, $sql1)) {
+      echo ("Corrida Echa");
+}else {
+      echo "Error: " . $sql . "<br>" . mysqli_error($connection);
+};
+
+?>
