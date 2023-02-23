@@ -1,7 +1,7 @@
 
 <?php
 // Database configuration
-$dbHost     = "1162.241.62.132";
+$dbHost     = "162.241.62.132";
 $dbUsername = "grupoosf_admin_pro";
 $dbPassword = "rQbp2RZAPK7KSBs";
 $dbName     = "grupoosf_db_prototype";
