@@ -13,7 +13,7 @@ $response["status"]=false;
 
 //$idProyecto= $obj["idProyecto"];
 
-$sql= "SELECT id_lote from CATALOGO_LOTES where proyecto='SAN FERNANDO' and estatus='DISPONIBLE'";
+$sql= "SELECT id_lote from CATALOGO_LOTES where proyecto='SAN FERNANDO' and estatus in ('DISPONIBLE','RESERVADO')";
 
 $resultado = mysqli_query($connection, $sql);
 $mData=array();
